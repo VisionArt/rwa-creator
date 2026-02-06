@@ -18,7 +18,6 @@
   - [Requirements](#requirements)
   - [Installation](#installation)
 - [Disclaimer](#disclaimer)
-  - [Example deployments](#example-deployments)
 
 
 # Tokenized Commodity
