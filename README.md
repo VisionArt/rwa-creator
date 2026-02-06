@@ -2,7 +2,7 @@
 
 # RWAs
 
-> Purpose of this project: To understand the tecnical side of tokenizing a commodity such as gold.
+> Purpose of this project: To understand the technical side of tokenizing a commodity such as gold.
 
 # Table of Contents
 
