@@ -3,38 +3,38 @@ pragma solidity ^0.8.20;
 
 import { Script } from "forge-std/Script.sol";
 import { HelperConfig } from "./HelperConfig.sol";
-import { dTSLA } from "../src/dTSLA.sol";
-import { IGetTslaReturnTypes } from "../src/interfaces/IGetTslaReturnTypes.sol";
+import { dXAU } from "../src/dXAU.sol";
+import { IGetXauReturnTypes } from "../src/interfaces/IGetXauReturnTypes.sol";
 
-contract DeployDTsla is Script {
+contract DeployDXau is Script {
     string constant alpacaMintSource = "./functions/sources/alpacaBalance.js";
     string constant alpacaRedeemSource = "./functions/sources/alpacaBalance.js";
 
     function run() external {
         // Get params
-        IGetTslaReturnTypes.GetTslaReturnType memory tslaReturnType = getdTslaRequirements();
+        IGetXauReturnTypes.GetXauReturnType memory xauReturnType = getdXauRequirements();
 
         // Actually deploy
         vm.startBroadcast();
         deployDTSLA(
-            tslaReturnType.subId,
-            tslaReturnType.mintSource,
-            tslaReturnType.redeemSource,
-            tslaReturnType.functionsRouter,
-            tslaReturnType.donId,
-            tslaReturnType.tslaFeed,
-            tslaReturnType.usdcFeed,
-            tslaReturnType.redemptionCoin,
-            tslaReturnType.secretVersion,
-            tslaReturnType.secretSlot
+            xauReturnType.subId,
+            xauReturnType.mintSource,
+            xauReturnType.redeemSource,
+            xauReturnType.functionsRouter,
+            xauReturnType.donId,
+            xauReturnType.xauFeed,
+            xauReturnType.usdcFeed,
+            xauReturnType.redemptionCoin,
+            xauReturnType.secretVersion,
+            xauReturnType.secretSlot
         );
         vm.stopBroadcast();
     }
 
-    function getdTslaRequirements() public returns (IGetTslaReturnTypes.GetTslaReturnType memory) {
+    function getdXauRequirements() public returns (IGetXauReturnTypes.GetXauReturnType memory) {
         HelperConfig helperConfig = new HelperConfig();
         (
-            address tslaFeed,
+            address xauFeed,
             address usdcFeed, /*address ethFeed*/
             ,
             address functionsRouter,
@@ -49,20 +49,20 @@ contract DeployDTsla is Script {
         ) = helperConfig.activeNetworkConfig();
 
         if (
-            tslaFeed == address(0) || usdcFeed == address(0) || functionsRouter == address(0) || donId == bytes32(0)
+            xauFeed == address(0) || usdcFeed == address(0) || functionsRouter == address(0) || donId == bytes32(0)
                 || subId == 0
         ) {
             revert("something is wrong");
         }
         string memory mintSource = vm.readFile(alpacaMintSource);
         string memory redeemSource = vm.readFile(alpacaRedeemSource);
-        return IGetTslaReturnTypes.GetTslaReturnType(
+        return IGetXauReturnTypes.GetXauReturnType(
             subId,
             mintSource,
             redeemSource,
             functionsRouter,
             donId,
-            tslaFeed,
+            xauFeed,
             usdcFeed,
             redemptionCoin,
             secretVersion,
@@ -76,27 +76,27 @@ contract DeployDTsla is Script {
         string memory redeemSource,
         address functionsRouter,
         bytes32 donId,
-        address tslaFeed,
+        address xauFeed,
         address usdcFeed,
         address redemptionCoin,
         uint64 secretVersion,
         uint8 secretSlot
     )
         public
-        returns (dTSLA)
+        returns (dXAU)
     {
-        dTSLA dTsla = new dTSLA(
+        dXAU dXau = new dXAU(
             subId,
             mintSource,
             redeemSource,
             functionsRouter,
             donId,
-            tslaFeed,
+            xauFeed,
             usdcFeed,
             redemptionCoin,
             secretVersion,
             secretSlot
         );
-        return dTsla;
+        return dXau;
     }
 }
