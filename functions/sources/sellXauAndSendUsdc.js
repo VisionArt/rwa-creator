@@ -1,11 +1,11 @@
 // // What does this script do? 
-// // 1. Sells TSLA on alpaca for USD 
+// // 1. Sells XAU on HSBC/IBKR for USD 
 // // 2. Buys USDC -> with USD
 // // 3. Sends USDC -> contract for withdrawl
 
 // // Return 0 on unsuccessful sell 
 
-const ASSET_TICKER = "TSLA"
+const ASSET_TICKER = "XAUUSD"
 const CRYPTO_TICKER = "USDCUSD"
 // TODO
 const RWA_CONTRACT = "0x7358D4CDF1c468aA018ec41ddD98b44879a10962"
@@ -18,7 +18,7 @@ async function main() {
     _checkKeys()
 
     /*//////////////////////////////////////////////////////////////
-                           SELL TSLA FOR USD
+                           SELL XAU FOR USD
     //////////////////////////////////////////////////////////////*/
     let side = "sell"
     let [client_order_id, orderStatus, responseStatus] = await placeOrder(ASSET_TICKER, amountTsla, side)
