@@ -11,8 +11,8 @@ import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
 
 /**
  * @title dXAU
- * @notice This is our contract to make requests to the Alpaca API to mint TSLA-backed dXAU tokens
- * @dev This contract is meant to be for educational purposes only
+ * @notice This is our contract to make requests to the Alpaca API to mint Gold-backed dXAU tokens
+ * @dev This contract is meant to be for research purposes only
  */
 contract dXAU is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
     using FunctionsRequest for FunctionsRequest.Request;
@@ -98,7 +98,7 @@ contract dXAU is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
     )
         FunctionsClient(functionsRouter)
         ConfirmedOwner(msg.sender)
-        ERC20("Backed TSLA", "bTSLA")
+        ERC20("Backed XAU", "bXAU")
     {
         s_mintSource = mintSource;
         s_redeemSource = redeemSource;
@@ -148,11 +148,11 @@ contract dXAU is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
     }
 
     /*
-     * @notice user sends a Chainlink Functions request to sell TSLA for redemptionCoin
+     * @notice user sends a Chainlink Functions request to sell XAU for redemptionCoin
      * @notice this will put the redemptionCoin in a withdrawl queue that the user must call to redeem
      * 
      * @dev Burn dXAU
-     * @dev Sell TSLA on brokerage
+     * @dev Sell XAU on brokerage
      * @dev Buy USDC on brokerage
      * @dev Send USDC to this contract for user to withdraw
      * 
@@ -282,7 +282,7 @@ contract dXAU is FunctionsClient, ConfirmedOwner, ERC20, Pausable {
         return s_portfolioBalance;
     }
 
-    // TSLA USD has 8 decimal places, so we add an additional 10 decimal places
+    // XAU USD has 8 decimal places, so we add an additional 10 decimal places
     function getXauPrice() public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(i_xauUsdFeed);
         (, int256 price,,,) = priceFeed.staleCheckLatestRoundData();
